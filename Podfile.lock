@@ -6,8 +6,8 @@ PODS:
     - Sourcery/CLI-Only (= 1.8.0)
   - Sourcery/CLI-Only (1.8.0)
   - SwiftGen (6.6.2)
-  - SwiftLint (0.53.0)
-  - SwiftUIIntrospect (0.12.0)
+  - SwiftLint (0.52.4)
+  - SwiftUIIntrospect (0.11.0)
   - SwiftyMocky (4.2.0):
     - Sourcery (= 1.8.0)
   - Swinject (2.8.3)
@@ -16,6 +16,7 @@ DEPENDENCIES:
   - Alamofire (~> 5.7)
   - KeychainSwift (~> 20.0)
   - Kingfisher (~> 7.8)
+  - OAuthSwift (~> 2.2.0)
   - SwiftGen (~> 6.6)
   - SwiftLint (~> 0.5)
   - SwiftUIIntrospect (~> 0.8)
@@ -27,6 +28,10 @@ SPEC REPOS:
     - Alamofire
     - KeychainSwift
     - Kingfisher
+    - nanopb
+    - OAuthSwift
+    - PromisesObjC
+    - PromisesSwift
     - Sourcery
     - SwiftGen
     - SwiftLint
@@ -49,10 +54,11 @@ SPEC CHECKSUMS:
   Kingfisher: 1d14e9f59cbe19389f591c929000332bf70efd32
   Sourcery: 6f5fe49b82b7e02e8c65560cbd52e1be67a1af2e
   SwiftGen: 1366a7f71aeef49954ca5a63ba4bef6b0f24138c
-  SwiftLint: 5ce4d6a8ff83f1b5fd5ad5dbf30965d35af65e44
-  SwiftUIIntrospect: 89f443402f701a9197e9e54e3c2ed00b10c32e6d
+  SwiftLint: 1cc5cd61ba9bacb2194e340aeb47a2a37fda00b3
+  SwiftUIIntrospect: a45aa645cd07ac2b9045e0bfb1d16ea5dae00e67
   SwiftyMocky: c5e96e4ff76ec6dbf5a5941aeb039b5a546954a0
   Swinject: 893c9a543000ac2f10ee4cbaf0933c6992c935d5
+  OAuthSwift: 75efbb5bd9a4b2b71a37bd7e986bf3f55ddd54c6
 
 PODFILE CHECKSUM: 881176d00eabfe8f78d6022c56c277cf61aad22b
 

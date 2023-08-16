@@ -19,13 +19,24 @@ public struct SignInView: View {
     
     @ObservedObject
     private var viewModel: SignInViewModel
+    private var navigationController: UINavigationController
     
-    public init(viewModel: SignInViewModel) {
+    public init(viewModel: SignInViewModel, navigationController: UINavigationController) {
         self.viewModel = viewModel
+        self.navigationController = navigationController
+    }
+    
+    public func webLogin() async {
+        await viewModel.login(viewController: self.navigationController)
     }
     
     public var body: some View {
-        ZStack(alignment: .top) {
+        if viewModel.forceWebLogin {
+            Task {
+                await webLogin()
+            }
+        }
+        return ZStack(alignment: .top) {
             VStack {
                 ThemeAssets.authBackground.swiftUIImage
                     .resizable()
@@ -71,6 +82,14 @@ public struct SignInView: View {
                                     .foregroundColor(Theme.Colors.textPrimary)
                                     .padding(.bottom, 20)
                                     .accessibilityIdentifier("welcome_back_text")
+                            if viewModel.useWebLogin {
+                                    StyledButton(AuthLocalization.SignIn.logInBtn) {
+                                        Task {
+                                            await webLogin()
+                                        }
+                                    }.frame(maxWidth: .infinity)
+                                        .padding(.top, 40)
+                            } else {
                                 Text(AuthLocalization.SignIn.emailOrUsername)
                                     .font(Theme.Fonts.labelLarge)
                                     .foregroundColor(Theme.Colors.textPrimary)
@@ -139,14 +158,14 @@ public struct SignInView: View {
                                     .padding(.top, 0)
                                     .accessibilityIdentifier("forgot_password_button")
                                 }
-                                
+                            }
                                 if viewModel.isShowProgress {
                                     HStack(alignment: .center) {
                                         ProgressBar(size: 40, lineWidth: 8)
                                             .padding(20)
                                             .accessibilityIdentifier("progressbar")
                                     }.frame(maxWidth: .infinity)
-                                } else {
+                                } else if !viewModel.useWebLogin {
                                     StyledButton(CoreLocalization.SignIn.logInBtn) {
                                         Task {
                                             await viewModel.login(username: email, password: password)
@@ -188,25 +207,37 @@ public struct SignInView: View {
                     Spacer()
                     
                 }
-                .transition(.move(edge: .top))
-                .onAppear {
-                    doAfter(Theme.Timeout.snackbarMessageLongTimeout) {
-                        viewModel.alertMessage = nil
+                
+                // MARK: - Alert
+                if viewModel.showAlert {
+                    VStack {
+                        Text(viewModel.alertMessage ?? "")
+                            .shadowCardStyle(bgColor: Theme.Colors.accentColor,
+                                             textColor: Theme.Colors.white)
+                            .padding(.top, 80)
+                        Spacer()
+                        
                     }
-                }
-            }
-            
-            // MARK: - Show error
-            if viewModel.showError {
-                VStack {
-                    Spacer()
-                    SnackBarView(message: viewModel.errorMessage)
-                }.transition(.move(edge: .bottom))
+                    .transition(.move(edge: .top))
                     .onAppear {
                         doAfter(Theme.Timeout.snackbarMessageLongTimeout) {
-                            viewModel.errorMessage = nil
+                            viewModel.alertMessage = nil
                         }
                     }
+                }
+                
+                // MARK: - Show error
+                if viewModel.showError {
+                    VStack {
+                        Spacer()
+                        SnackBarView(message: viewModel.errorMessage)
+                    }.transition(.move(edge: .bottom))
+                        .onAppear {
+                            doAfter(Theme.Timeout.snackbarMessageLongTimeout) {
+                                viewModel.errorMessage = nil
+                            }
+                        }
+                }
             }
         }
         .hideNavigationBar()
@@ -255,12 +286,12 @@ struct SignInView_Previews: PreviewProvider {
             sourceScreen: .default
         )
         
-        SignInView(viewModel: vm)
+        SignInView(viewModel: vm, navigationController: UINavigationController())
             .preferredColorScheme(.light)
             .previewDisplayName("SignInView Light")
             .loadFonts()
         
-        SignInView(viewModel: vm)
+        SignInView(viewModel: vm, navigationController: UINavigationController())
             .preferredColorScheme(.dark)
             .previewDisplayName("SignInView Dark")
             .loadFonts()

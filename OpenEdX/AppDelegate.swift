@@ -13,6 +13,7 @@ import GoogleSignIn
 import FacebookCore
 import MSAL
 import Theme
+import OAuthSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -69,6 +70,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]
     ) -> Bool {
         guard let config = Container.shared.resolve(ConfigProtocol.self) else { return false }
+
+        if url.host == "oauth2Callback" {
+          // TODO: Update to better match the other OAuth redirect behaviors
+          OAuthSwift.handle(url: url)
+        }
 
         if let deepLinkManager = Container.shared.resolve(DeepLinkManager.self),
             deepLinkManager.anyServiceEnabled {

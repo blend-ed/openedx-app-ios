@@ -59,12 +59,21 @@ class RouteController: UIViewController {
                     viewModel: diContainer.resolve(
                         SignInViewModel.self,
                         argument: LogistrationSourceScreen.default
-                    )!
+                    )!,
+                    navigationController: self.navigation
                 )
             )
             navigation.viewControllers = [controller]
             present(navigation, animated: false)
         }
+    }
+
+    private func showAuthorization() {
+        let controller = UIHostingController(
+            rootView: SignInView(viewModel: diContainer.resolve(SignInViewModel.self)!, navigationController: self.navigation)
+        )
+        navigation.viewControllers = [controller]
+        present(navigation, animated: false)
     }
     
     private func showMainOrWhatsNewScreen() {

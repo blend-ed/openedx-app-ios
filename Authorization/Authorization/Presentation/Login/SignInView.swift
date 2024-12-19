@@ -83,7 +83,7 @@ public struct SignInView: View {
                                     .padding(.bottom, 20)
                                     .accessibilityIdentifier("welcome_back_text")
                             if viewModel.useWebLogin {
-                                    StyledButton(AuthLocalization.SignIn.logInBtn) {
+                                    StyledButton(CoreLocalization.SignIn.logInBtn) {
                                         Task {
                                             await webLogin()
                                         }

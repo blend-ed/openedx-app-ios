@@ -2,6 +2,7 @@ PODS:
   - Alamofire (5.8.0)
   - KeychainSwift (20.0.0)
   - Kingfisher (7.9.1)
+  - OAuthSwift (2.2.0)
   - Sourcery (1.8.0):
     - Sourcery/CLI-Only (= 1.8.0)
   - Sourcery/CLI-Only (1.8.0)
@@ -28,10 +29,7 @@ SPEC REPOS:
     - Alamofire
     - KeychainSwift
     - Kingfisher
-    - nanopb
     - OAuthSwift
-    - PromisesObjC
-    - PromisesSwift
     - Sourcery
     - SwiftGen
     - SwiftLint
@@ -52,14 +50,14 @@ SPEC CHECKSUMS:
   Alamofire: 0e92e751b3e9e66d7982db43919d01f313b8eb91
   KeychainSwift: 0ce6a4d13f7228054d1a71bb1b500448fb2ab837
   Kingfisher: 1d14e9f59cbe19389f591c929000332bf70efd32
+  OAuthSwift: 75efbb5bd9a4b2b71a37bd7e986bf3f55ddd54c6
   Sourcery: 6f5fe49b82b7e02e8c65560cbd52e1be67a1af2e
   SwiftGen: 1366a7f71aeef49954ca5a63ba4bef6b0f24138c
   SwiftLint: 1cc5cd61ba9bacb2194e340aeb47a2a37fda00b3
   SwiftUIIntrospect: a45aa645cd07ac2b9045e0bfb1d16ea5dae00e67
   SwiftyMocky: c5e96e4ff76ec6dbf5a5941aeb039b5a546954a0
   Swinject: 893c9a543000ac2f10ee4cbaf0933c6992c935d5
-  OAuthSwift: 75efbb5bd9a4b2b71a37bd7e986bf3f55ddd54c6
 
-PODFILE CHECKSUM: 881176d00eabfe8f78d6022c56c277cf61aad22b
+PODFILE CHECKSUM: f6603ea2fec9aa674f3a5d11694db2e8d9feabe0
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2

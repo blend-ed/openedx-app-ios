@@ -125,9 +125,9 @@ public class SignInViewModel: ObservableObject {
                 Task {
                     self.webLoginAttempted = true
                     let user = try await self.interactor.login(credential: thing.credential)
-                    self.analytics.setUserID("\(user.id)")
+                    self.analytics.identify(id: "\(user.id)", username: user.username, email: user.email)
                     self.analytics.userLogin(method: .webAuth)
-                    self.router.showMainOrWhatsNewScreen()
+                    self.router.showMainOrWhatsNewScreen(sourceScreen: self.sourceScreen)
                 }
                 // Do your request
             case .failure(let error):

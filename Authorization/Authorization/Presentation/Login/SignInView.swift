@@ -207,38 +207,21 @@ public struct SignInView: View {
                     Spacer()
                     
                 }
+            }
                 
-                // MARK: - Alert
-                if viewModel.showAlert {
-                    VStack {
-                        Text(viewModel.alertMessage ?? "")
-                            .shadowCardStyle(bgColor: Theme.Colors.accentColor,
-                                             textColor: Theme.Colors.white)
-                            .padding(.top, 80)
-                        Spacer()
-                        
-                    }
-                    .transition(.move(edge: .top))
+            // MARK: - Show error
+            if viewModel.showError {
+                VStack {
+                    Spacer()
+                    SnackBarView(message: viewModel.errorMessage)
+                }.transition(.move(edge: .bottom))
                     .onAppear {
                         doAfter(Theme.Timeout.snackbarMessageLongTimeout) {
-                            viewModel.alertMessage = nil
+                            viewModel.errorMessage = nil
                         }
                     }
-                }
-                
-                // MARK: - Show error
-                if viewModel.showError {
-                    VStack {
-                        Spacer()
-                        SnackBarView(message: viewModel.errorMessage)
-                    }.transition(.move(edge: .bottom))
-                        .onAppear {
-                            doAfter(Theme.Timeout.snackbarMessageLongTimeout) {
-                                viewModel.errorMessage = nil
-                            }
-                        }
-                }
             }
+            
         }
         .hideNavigationBar()
         .ignoresSafeArea(.all, edges: .horizontal)
